@@ -1,0 +1,3 @@
+[console_scripts]
+start-techventory2 = techventory2.commands:start
+
