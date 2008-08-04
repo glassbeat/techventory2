@@ -1,3 +1,4 @@
+from datetime import datetime
 import pkg_resources
 pkg_resources.require("SQLAlchemy>=0.3.10")
 from turbogears.database import metadata, mapper
@@ -20,7 +21,10 @@ servers_table = Table('servers', metadata,
     Column('id', Integer, primary_key=True),
     Column('tag', Integer),
     Column('name', Unicode),
-    Column('description', Unicode)
+    Column('description', Unicode),
+    Column('date_created', DateTime, default=datetime.now),
+    Column('last_modified', DateTime, default=datetime.now),
+    Column('physical_id', Integer, ForeignKey('servers.id'))
 )
 
 # your model classes
@@ -35,4 +39,5 @@ class Server(object):
 
 # mapper(YourDataClass, your_table)
 
-mapper(Server, servers_table)
+mapper(Server, servers_table,
+       properties=dict(physicals=relation(Server, backref='servers')))
