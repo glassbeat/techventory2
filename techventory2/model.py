@@ -16,16 +16,23 @@ from ffbstatssa.lib import identity
 #     Column('my_id', Integer, primary_key=True)
 # )
 
+servers_table = Table('servers', metadata,
+    Column('id', Integer, primary_key=True),
+    Column('tag', Integer),
+    Column('name', Unicode),
+    Column('description', Unicode)
+)
 
 # your model classes
-
 
 # class YourDataClass(object):
 #     pass
 
+class Server(object):
+    pass
 
 # set up mappers between your data tables and classes
 
 # mapper(YourDataClass, your_table)
 
-
+mapper(Server, servers_table)
